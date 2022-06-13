@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Authenticating Spotify</title>
+    <style type="text/css">
+    	*{
+    		margin: 0;
+    		padding: 0;
+    		font-size: 24px;
+				font-weight: bold;
+				font-family: Arial, sans-serif;
+    	}
+    	body{
+    		background-image: url('assets/assets/images/background_large.png');
+    		height: 100vh;
+    		background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+    	}
+    	@media all and (max-width : 480px) {
+	    	body{
+	    		background-image: url('assets/assets/images/background_small.png');
+	    	}
+    	}
+    	@media all and (max-width : 767px) {
+	    	body{
+	    		background-image: url('assets/assets/images/background_medium.png');
+	    	}
+    	}
+    </style>
+  </head>
+  <body>
+	<p>Please wait while we authenticate Spotify...</p>
+	<script type="text/javascript">
+		window.onload = function(){
+			const urlSearchParams = new URLSearchParams(window.location.search);
+			var code = urlSearchParams.get("code");
+			window.localStorage.clear();
+			window.localStorage.setItem('code', code);
+			window.open("https://prasetyanurangga.github.io/moodly", "_self");
+		}
+	</script>
+  </body>
+</html>
