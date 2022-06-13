@@ -25,7 +25,7 @@ jobs:
   
     
     - name: Build release project
-      run: flutter build web --release --web-renderer html --dart-define=BASE_URL=${{ secrets.BASE_URL }} --dart-define=CLIENT_ID=${{ secrets.CLIENT_ID }} --dart-define=CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
+      run: flutter build web --release --web-renderer html --base-href="/moodly" --dart-define=BASE_URL=${{ secrets.BASE_URL }} --dart-define=CLIENT_ID=${{ secrets.CLIENT_ID }} --dart-define=CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
 
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v2
