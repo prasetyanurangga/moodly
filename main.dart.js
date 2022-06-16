@@ -49443,7 +49443,7 @@ i=null
 p=4
 l=t.z
 s=7
-return A.D(A.a8m(A.a7W("http://103.28.52.29:8080",A.aQ(["access_token",a],t.N,l))).Vk(0,j,null,null,A.a8o("GET",null),null,l),$async$fJ)
+return A.D(A.a8m(A.a7W("https://pintas.my.id",A.aQ(["access_token",a],t.N,l))).Vk(0,j,null,null,A.a8o("GET",null),null,l),$async$fJ)
 case 7:i=c
 p=2
 s=6
