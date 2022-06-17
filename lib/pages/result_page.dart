@@ -62,14 +62,34 @@ class _ResultPageState extends State<ResultPage> {
               } else if(state is MoodlySuccess){
                 var data = state.data as Data;
                 var mood = data.mood!;
+                var energy = data.energy!;
+                var acousticness = data.acousticness!;
+                var dance = data.dance!;
                 var year = data.year!;
                 var listItemYear = year.data!;
-                Map<String, double> dataMap = {
+
+                Map<String, double> dataMapMood = {
                   "Depressed": (mood.depressed!.count!).toDouble(),
                   "Sad": (mood.sad!.count!).toDouble(),
                   "Happy": (mood.happy!.count!).toDouble(),
                   "Elated": (mood.elated!.count!).toDouble(),
                 };
+
+                Map<String, double> dataMapEnergy = {
+                  "High Energy": (energy.highEnergy!.count!).toDouble(),
+                  "Chill": (energy.chill!.count!).toDouble(),
+                };
+
+                Map<String, double> dataMapAcousticness = {
+                  "Acoustic": (acousticness.acoustic!.count!).toDouble(),
+                  "Non Acoustic": (acousticness.nonAcoustic!.count!).toDouble(),
+                };
+
+                Map<String, double> dataMapDance = {
+                  "Party": (dance.party!.count!).toDouble(),
+                  "Relax": (dance.relax!.count!).toDouble(),
+                };
+
 
 
                 Map<String, double> dataMapYear = {
@@ -99,7 +119,10 @@ class _ResultPageState extends State<ResultPage> {
                       child: Column(
                         children : [
                           PieChart(dataMap: dataMapYear),
-                          PieChart(dataMap: dataMap)
+                          PieChart(dataMap: dataMapMood),
+                          PieChart(dataMap: dataMapDance),
+                          PieChart(dataMap: dataMapEnergy),
+                          PieChart(dataMap: dataMapAcousticness)
                         ]
                       )
                     )
@@ -110,7 +133,10 @@ class _ResultPageState extends State<ResultPage> {
                       child: Column(
                         children : [
                           PieChart(dataMap: dataMapYear),
-                          PieChart(dataMap: dataMap)
+                          PieChart(dataMap: dataMapMood),
+                          PieChart(dataMap: dataMapDance),
+                          PieChart(dataMap: dataMapEnergy),
+                          PieChart(dataMap: dataMapAcousticness)
                         ]
                       )
                     )
@@ -124,7 +150,16 @@ class _ResultPageState extends State<ResultPage> {
                             child : PieChart(dataMap: dataMapYear),
                           ),
                           Expanded(
-                            child : PieChart(dataMap: dataMap),
+                            child : PieChart(dataMap: dataMapMood),
+                          ),
+                          Expanded(
+                            child : PieChart(dataMap: dataMapDance),
+                          ),
+                          Expanded(
+                            child : PieChart(dataMap: dataMapEnergy),
+                          ),
+                          Expanded(
+                            child : PieChart(dataMap: dataMapAcousticness),
                           ),
                         ]
                       )

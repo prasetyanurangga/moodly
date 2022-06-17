@@ -20,6 +20,7 @@ class Data {
   Dance? dance;
   Mood? mood;
   Energy? energy;
+  Acousticness? acousticness;
   Year? year;
 
   Data({this.dance, this.mood, this.energy, this.year});
@@ -28,6 +29,7 @@ class Data {
     dance = json['dance'] != null ? new Dance.fromJson(json['dance']) : null;
     mood = json['mood'] != null ? new Mood.fromJson(json['mood']) : null;
     energy = json['energy'] != null ? new Energy.fromJson(json['energy']) : null;
+    acousticness = json['acousticness'] != null ? new Acousticness.fromJson(json['acousticness']) : null;
     year = json['year'] != null ? new Year.fromJson(json['year']) : null;
   }
 
@@ -41,6 +43,9 @@ class Data {
     }
     if (this.energy != null) {
       data['energy'] = this.energy!.toJson();
+    }
+    if (this.acousticness != null) {
+      data['acousticness'] = this.acousticness!.toJson();
     }
     if (this.year != null) {
       data['year'] = this.year!.toJson();
@@ -101,6 +106,32 @@ class ItemYear {
     }
     data['count'] = this.count;
     data['year'] = this.year;
+    return data;
+  }
+}
+
+class Acousticness {
+  ItemMood? acoustic;
+  ItemMood? nonAcoustic;
+  int? total;
+
+  Acousticness({this.party, this.relax, this.total});
+
+  Acousticness.fromJson(Map<String, dynamic> json) {
+    acoustic = json['acoustic'] != null ? new ItemMood.fromJson(json['acoustic']) : null;
+    nonAcoustic = json['non_acoustic'] != null ? new ItemMood.fromJson(json['non_acoustic']) : null;
+    total = json['total'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.acoustic != null) {
+      data['acoustic'] = this.acoustic!.toJson();
+    }
+    if (this.nonAcoustic != null) {
+      data['non_acoustic'] = this.nonAcoustic!.toJson();
+    }
+    data['total'] = this.total;
     return data;
   }
 }
