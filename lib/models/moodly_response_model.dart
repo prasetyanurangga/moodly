@@ -115,7 +115,7 @@ class Acousticness {
   ItemMood? nonAcoustic;
   int? total;
 
-  Acousticness({this.party, this.relax, this.total});
+  Acousticness({this.acoustic, this.nonAcoustic, this.total});
 
   Acousticness.fromJson(Map<String, dynamic> json) {
     acoustic = json['acoustic'] != null ? new ItemMood.fromJson(json['acoustic']) : null;
