@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Snaptify",
+                    "Moodly",
                     style: Theme.of(context).textTheme.headline2?.copyWith(
                       fontSize: 56.0, 
                       fontWeight: FontWeight.w900,

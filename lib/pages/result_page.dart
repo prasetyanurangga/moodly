@@ -40,6 +40,30 @@ class _ResultPageState extends State<ResultPage> {
     super.didChangeDependencies();
   }
 
+  final colorListMood = <Color>[
+    Color(0xFF142F43),
+    Color(0xFFB000B9),
+    Color(0xFFFF5F7E),
+    Color(0xFFFFAB4C),
+  ];
+
+  final colorListYear = <Color>[
+    Color(0xFFd81b60),
+    Color(0xFF2979ff),
+    Color(0xFFff6d00),
+    Color(0xFF4527a0),
+
+    Color(0xFFdd2c00),
+    Color(0xFF689f38),
+    Color(0xFFeeff41),
+    Color(0xFFB000B9),
+    Color(0xFFff8a80),
+  ];
+
+  double percent(int first, int two){
+    return (first * 100.0) / two;
+  }
+
 
 
   Widget _buildMain(){
@@ -69,25 +93,25 @@ class _ResultPageState extends State<ResultPage> {
                 var listItemYear = year.data!;
 
                 Map<String, double> dataMapMood = {
-                  "Depressed": (mood.depressed!.count!).toDouble(),
-                  "Sad": (mood.sad!.count!).toDouble(),
-                  "Happy": (mood.happy!.count!).toDouble(),
-                  "Elated": (mood.elated!.count!).toDouble(),
+                  "Depressed": percent(mood.depressed!.count!, mood.total!).toDouble(),
+                  "Sad": percent(mood.sad!.count!, mood.total!).toDouble(),
+                  "Happy": percent(mood.happy!.count!, mood.total!).toDouble(),
+                  "Elated": percent(mood.elated!.count!, mood.total!).toDouble(),
                 };
 
                 Map<String, double> dataMapEnergy = {
-                  "High Energy": (energy.highEnergy!.count!).toDouble(),
-                  "Chill": (energy.chill!.count!).toDouble(),
+                  "High Energy": percent(energy.highEnergy!.count!, mood.total!).toDouble(),
+                  "Chill": percent(energy.chill!.count!, mood.total!).toDouble(),
                 };
 
                 Map<String, double> dataMapAcousticness = {
-                  "Acoustic": (acousticness.acoustic!.count!).toDouble(),
-                  "Non Acoustic": (acousticness.nonAcoustic!.count!).toDouble(),
+                  "Acoustic": percent(acousticness.acoustic!.count!, mood.total!).toDouble(),
+                  "Non Acoustic": percent(acousticness.nonAcoustic!.count!, mood.total!).toDouble(),
                 };
 
                 Map<String, double> dataMapDance = {
-                  "Party": (dance.party!.count!).toDouble(),
-                  "Relax": (dance.relax!.count!).toDouble(),
+                  "Party": percent(dance.party!.count!, mood.total!).toDouble(),
+                  "Relax": percent(dance.relax!.count!, mood.total!).toDouble(),
                 };
 
 
@@ -118,11 +142,38 @@ class _ResultPageState extends State<ResultPage> {
                     child: Container(
                       child: Column(
                         children : [
-                          PieChart(dataMap: dataMapYear),
-                          PieChart(dataMap: dataMapMood),
-                          PieChart(dataMap: dataMapDance),
-                          PieChart(dataMap: dataMapEnergy),
-                          PieChart(dataMap: dataMapAcousticness)
+                          PieChart(
+                            dataMap: dataMapYear,
+                            colorList: colorListYear,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapMood,
+                            colorList: colorListMood,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapDance,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapEnergy,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapAcousticness,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          )
                         ]
                       )
                     )
@@ -132,11 +183,38 @@ class _ResultPageState extends State<ResultPage> {
                     child: Container(
                       child: Column(
                         children : [
-                          PieChart(dataMap: dataMapYear),
-                          PieChart(dataMap: dataMapMood),
-                          PieChart(dataMap: dataMapDance),
-                          PieChart(dataMap: dataMapEnergy),
-                          PieChart(dataMap: dataMapAcousticness)
+                          PieChart(
+                            dataMap: dataMapYear,
+                            colorList: colorListYear,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapMood,
+                            colorList: colorListMood,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapDance,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapEnergy,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          ),
+                          PieChart(
+                            dataMap: dataMapAcousticness,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
+                          )
                         ]
                       )
                     )
@@ -147,19 +225,46 @@ class _ResultPageState extends State<ResultPage> {
                       child: Row(
                         children : [
                           Expanded(
-                            child : PieChart(dataMap: dataMapYear),
+                            child: PieChart(
+                              dataMap: dataMapYear,
+                              colorList: colorListYear,
+                              chartValuesOptions: ChartValuesOptions(
+                                showChartValuesInPercentage: true,
+                              ),
+                            ),
                           ),
                           Expanded(
-                            child : PieChart(dataMap: dataMapMood),
+                            child : PieChart(
+                              dataMap: dataMapMood,
+                              colorList: colorListMood,
+                              chartValuesOptions: ChartValuesOptions(
+                                showChartValuesInPercentage: true,
+                              ),
+                            ),
                           ),
                           Expanded(
-                            child : PieChart(dataMap: dataMapDance),
+                            child : PieChart(
+                              dataMap: dataMapDance,
+                              chartValuesOptions: ChartValuesOptions(
+                                showChartValuesInPercentage: true,
+                              ),
+                            ),
                           ),
                           Expanded(
-                            child : PieChart(dataMap: dataMapEnergy),
+                            child : PieChart(
+                              dataMap: dataMapEnergy,
+                              chartValuesOptions: ChartValuesOptions(
+                                showChartValuesInPercentage: true,
+                              ),
+                            ),
                           ),
                           Expanded(
-                            child : PieChart(dataMap: dataMapAcousticness),
+                            child : PieChart(
+                              dataMap: dataMapAcousticness,
+                              chartValuesOptions: ChartValuesOptions(
+                                showChartValuesInPercentage: true,
+                              ),
+                            ),
                           ),
                         ]
                       )
