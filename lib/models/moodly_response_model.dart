@@ -20,14 +20,15 @@ class Data {
   Dance? dance;
   Mood? mood;
   Energy? energy;
+  Year? year;
 
-  Data({this.dance, this.mood, this.energy});
+  Data({this.dance, this.mood, this.energy, this.year});
 
   Data.fromJson(Map<String, dynamic> json) {
     dance = json['dance'] != null ? new Dance.fromJson(json['dance']) : null;
     mood = json['mood'] != null ? new Mood.fromJson(json['mood']) : null;
-    energy =
-        json['energy'] != null ? new Energy.fromJson(json['energy']) : null;
+    energy = json['energy'] != null ? new Energy.fromJson(json['energy']) : null;
+    year = json['year'] != null ? new Year.fromJson(json['year']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -41,20 +42,96 @@ class Data {
     if (this.energy != null) {
       data['energy'] = this.energy!.toJson();
     }
+    if (this.year != null) {
+      data['year'] = this.year!.toJson();
+    }
+    return data;
+  }
+}
+
+class Year {
+  ListItemYear? listItemYear;
+  int? count;
+
+  Year({this.itemYear, this.count});
+
+  Year.fromJson(Map<String, dynamic> json) {
+    listItemYear = json['item'] != null ? new ListItemYear.fromJson(json['item']) : null;
+    count = json['count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.listItemYear != null) {
+      data['item'] = this.listItemYear!.toJson();
+    }
+    data['count'] = this.total;
+    return data;
+  }
+}
+
+class ListItemYear {
+  List<ItemYear>? data;
+
+  ListItemYear({this.data});
+
+  ListItemYear.fromJson(Map<String, dynamic> json) {
+    if (json['item'] != null) {
+      data = <Track>[];
+      json['item'].forEach((v) {
+        data!.add(new ItemYear.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['item'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class ItemYear {
+  List<Track>? data;
+  int? count;
+  int? year;
+
+  ItemYear({this.data, this.count});
+
+  ItemYear.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <Track>[];
+      json['data'].forEach((v) {
+        data!.add(new Track.fromJson(v));
+      });
+    }
+    count = json['count'];
+    year = json['year'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    data['count'] = this.count;
+    data['year'] = this.year;
     return data;
   }
 }
 
 class Dance {
-  Party? party;
-  Party? relax;
+  ItemMood? party;
+  ItemMood? relax;
   int? total;
 
   Dance({this.party, this.relax, this.total});
 
   Dance.fromJson(Map<String, dynamic> json) {
-    party = json['party'] != null ? new Party.fromJson(json['party']) : null;
-    relax = json['relax'] != null ? new Party.fromJson(json['relax']) : null;
+    party = json['party'] != null ? new ItemMood.fromJson(json['party']) : null;
+    relax = json['relax'] != null ? new ItemMood.fromJson(json['relax']) : null;
     total = json['total'];
   }
 
@@ -71,13 +148,13 @@ class Dance {
   }
 }
 
-class Party {
+class ItemMood {
   List<Track>? data;
   int? count;
 
-  Party({this.data, this.count});
+  ItemMood({this.data, this.count});
 
-  Party.fromJson(Map<String, dynamic> json) {
+  ItemMood.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <Track>[];
       json['data'].forEach((v) {
@@ -123,21 +200,21 @@ class Track {
 }
 
 class Mood {
-  Party? depressed;
-  Party? sad;
-  Party? happy;
-  Party? elated;
+  ItemMood? depressed;
+  ItemMood? sad;
+  ItemMood? happy;
+  ItemMood? elated;
   int? total;
 
   Mood({this.depressed, this.sad, this.happy, this.elated, this.total});
 
   Mood.fromJson(Map<String, dynamic> json) {
     depressed = json['depressed'] != null
-        ? new Party.fromJson(json['depressed'])
+        ? new ItemMood.fromJson(json['depressed'])
         : null;
-    sad = json['sad'] != null ? new Party.fromJson(json['sad']) : null;
-    happy = json['happy'] != null ? new Party.fromJson(json['happy']) : null;
-    elated = json['elated'] != null ? new Party.fromJson(json['elated']) : null;
+    sad = json['sad'] != null ? new ItemMood.fromJson(json['sad']) : null;
+    happy = json['happy'] != null ? new ItemMood.fromJson(json['happy']) : null;
+    elated = json['elated'] != null ? new ItemMood.fromJson(json['elated']) : null;
     total = json['total'];
   }
 
@@ -161,17 +238,17 @@ class Mood {
 }
 
 class Energy {
-  Party? highEnergy;
-  Party? chill;
+  ItemMood? highEnergy;
+  ItemMood? chill;
   int? total;
 
   Energy({this.highEnergy, this.chill, this.total});
 
   Energy.fromJson(Map<String, dynamic> json) {
     highEnergy = json['high_energy'] != null
-        ? new Party.fromJson(json['high_energy'])
+        ? new ItemMood.fromJson(json['high_energy'])
         : null;
-    chill = json['chill'] != null ? new Party.fromJson(json['chill']) : null;
+    chill = json['chill'] != null ? new ItemMood.fromJson(json['chill']) : null;
     total = json['total'];
   }
 

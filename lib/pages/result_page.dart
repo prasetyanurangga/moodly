@@ -61,14 +61,36 @@ class _ResultPageState extends State<ResultPage> {
             } else if(state is MoodlySuccess){
               var data = state.data as Data;
               var mood = data.mood!;
+              var year = data.year!;
+              var listItemYear = data.listItemYear!;
               Map<String, double> dataMap = {
                 "Depressed": (mood.depressed!.count!).toDouble(),
                 "Sad": (mood.sad!.count!).toDouble(),
                 "Happy": (mood.happy!.count!).toDouble(),
                 "Elated": (mood.elated!.count!).toDouble(),
               };
+
+
+              Map<String, double> dataMapYear = {
+                "1940": 0,
+                "1950": 0,
+                "1960": 0,
+                "1970": 0,
+                "1980": 0,
+                "1990": 0,
+                "2000": 0,
+                "2010": 0,
+                "2020": 0,
+              };
+
+
+              listItemYear.forEach((element) => {
+                var y = (element.year!).toString()
+                dataMapYear[y] = element.count!
+              });
+
               return Container(
-                child: PieChart(dataMap: dataMap)
+                child: PieChart(dataMap: dataMapYear)
               );
             } else if(state is MoodlyFailure) {
               return Center(
