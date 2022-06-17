@@ -86,7 +86,7 @@ class _ResultPageState extends State<ResultPage> {
 
               listItemYear.forEach((element) {
                 var y = (element.year!).toString();
-                dataMapYear[y] = element.count!;
+                dataMapYear[y] = (element.count!).toDouble();
               });
 
               return Container(
