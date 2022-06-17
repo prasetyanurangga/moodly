@@ -23,7 +23,7 @@ class Data {
   Acousticness? acousticness;
   Year? year;
 
-  Data({this.dance, this.mood, this.energy, this.year});
+  Data({this.dance, this.mood, this.energy, this.year, this.acousticness});
 
   Data.fromJson(Map<String, dynamic> json) {
     dance = json['dance'] != null ? new Dance.fromJson(json['dance']) : null;
