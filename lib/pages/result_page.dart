@@ -98,12 +98,8 @@ class _ResultPageState extends State<ResultPage> {
                     child: Container(
                       child: Column(
                         children : [
-                          Expanded(
-                            child : PieChart(dataMap: dataMapYear),
-                          ),
-                          Expanded(
-                            child : PieChart(dataMap: dataMap),
-                          ),
+                          PieChart(dataMap: dataMapYear),
+                          PieChart(dataMap: dataMap)
                         ]
                       )
                     )
@@ -113,12 +109,8 @@ class _ResultPageState extends State<ResultPage> {
                     child: Container(
                       child: Column(
                         children : [
-                          Expanded(
-                            child : PieChart(dataMap: dataMapYear),
-                          ),
-                          Expanded(
-                            child : PieChart(dataMap: dataMap),
-                          ),
+                          PieChart(dataMap: dataMapYear),
+                          PieChart(dataMap: dataMap)
                         ]
                       )
                     )
