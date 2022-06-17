@@ -18,14 +18,14 @@ jobs:
     - name: Install Flutter
       uses: subosito/flutter-action@v1
       with:
-        flutter-version: '2.8.0'
+        flutter-version: '3.0.1'
     
     - name: Get dependencies
       run: flutter pub get
   
     
     - name: Build release project
-      run: flutter build web --release --dart-define=BASE_URL=${{ secrets.BASE_URL }} --dart-define=CLIENT_ID=${{ secrets.CLIENT_ID }} --dart-define=CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
+      run: flutter build web --release --web-renderer html --base-href "/moodly/" --dart-define=BASE_URL=${{ secrets.BASE_URL }} --dart-define=CLIENT_ID=${{ secrets.CLIENT_ID }} --dart-define=CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
 
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v2
