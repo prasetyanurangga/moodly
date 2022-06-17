@@ -120,7 +120,7 @@ class _ResultPageState extends State<ResultPage> {
                       )
                     ),
                     Text(
-                      data,
+                      "Internal Server Error",
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 24,
