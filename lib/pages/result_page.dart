@@ -89,6 +89,8 @@ class _ResultPageState extends State<ResultPage> {
                 dataMapYear[y] = (element.count!).toDouble();
               });
 
+              print(dataMapYear);
+
               return Container(
                 child: PieChart(dataMap: dataMapYear)
               );
