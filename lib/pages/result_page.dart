@@ -62,7 +62,7 @@ class _ResultPageState extends State<ResultPage> {
               var data = state.data as Data;
               var mood = data.mood!;
               var year = data.year!;
-              var listItemYear = year.listItemYear!;
+              var listItemYear = year.listItemYear!.data!;
               Map<String, double> dataMap = {
                 "Depressed": (mood.depressed!.count!).toDouble(),
                 "Sad": (mood.sad!.count!).toDouble(),
@@ -85,8 +85,8 @@ class _ResultPageState extends State<ResultPage> {
 
 
               listItemYear.forEach((element) {
-                var y = (element.year!).toString()
-                dataMapYear[y] = element.count!
+                var y = (element.year!).toString();
+                dataMapYear[y] = element.count!;
               });
 
               return Container(
