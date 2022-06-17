@@ -49,39 +49,21 @@ class Data {
   }
 }
 
+
 class Year {
-  ListItemYear? listItemYear;
+  List<ItemYear>? data;
   int? count;
 
-  Year({this.listItemYear, this.count});
+  Year({this.data, this.count});
 
   Year.fromJson(Map<String, dynamic> json) {
-    listItemYear = json['item'] != null ? new ListItemYear.fromJson(json['item']) : null;
-    count = json['count'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.listItemYear != null) {
-      data['item'] = this.listItemYear!.toJson();
-    }
-    data['count'] = this.count;
-    return data;
-  }
-}
-
-class ListItemYear {
-  List<ItemYear>? data;
-
-  ListItemYear({this.data});
-
-  ListItemYear.fromJson(Map<String, dynamic> json) {
     if (json['item'] != null) {
       data = <ItemYear>[];
       json['item'].forEach((v) {
         data!.add(new ItemYear.fromJson(v));
       });
     }
+    count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -89,6 +71,7 @@ class ListItemYear {
     if (this.data != null) {
       data['item'] = this.data!.map((v) => v.toJson()).toList();
     }
+    data['count'] = this.count;
     return data;
   }
 }

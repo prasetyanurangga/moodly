@@ -23,6 +23,7 @@ class MoodlyBloc extends Bloc<MoodlyEvent, MoodlyState> {
         if (response.status == Status.Success) {
           emit(MoodlySuccess(data: finalResponse.data as Data));
         } else {
+          print( response.message);
           emit(MoodlyFailure(error: response.message ??  "Error"));
         }
       } catch (error) {

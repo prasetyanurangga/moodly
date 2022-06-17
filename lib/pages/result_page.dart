@@ -62,7 +62,7 @@ class _ResultPageState extends State<ResultPage> {
               var data = state.data as Data;
               var mood = data.mood!;
               var year = data.year!;
-              var listItemYear = year.listItemYear!.data!;
+              var listItemYear = year.data!;
               Map<String, double> dataMap = {
                 "Depressed": (mood.depressed!.count!).toDouble(),
                 "Sad": (mood.sad!.count!).toDouble(),
@@ -92,9 +92,20 @@ class _ResultPageState extends State<ResultPage> {
               print(dataMapYear);
 
               return Container(
-                child: PieChart(dataMap: dataMapYear)
+                child: Row(
+                  children : [
+                    Expanded(
+                      child : PieChart(dataMap: dataMapYear),
+                    ),
+                    Expanded(
+                      child : PieChart(dataMap: dataMap),
+                    ),
+                  ]
+                )
               );
             } else if(state is MoodlyFailure) {
+
+              var data = state.error;
               return Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,7 +120,7 @@ class _ResultPageState extends State<ResultPage> {
                       )
                     ),
                     Text(
-                      "Internal Server Error",
+                      data,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 24,
