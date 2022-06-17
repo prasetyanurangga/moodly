@@ -44,96 +44,134 @@ class _ResultPageState extends State<ResultPage> {
 
   Widget _buildMain(){
     return Scaffold(
-      body: Container(
-        child : BlocBuilder<MoodlyBloc, MoodlyState>(
-          builder: (context, state) {
-            if(state is MoodlyLoading){
-              return Center(
-                child: Text(
-                  "Loading",
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32,
-                    color: Colors.black
+      body : SingleChildScrollView(
+        child: Container(
+          child : BlocBuilder<MoodlyBloc, MoodlyState>(
+            builder: (context, state) {
+              if(state is MoodlyLoading){
+                return Center(
+                  child: Text(
+                    "Loading",
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 32,
+                      color: Colors.black
+                    )
                   )
-                )
-              );
-            } else if(state is MoodlySuccess){
-              var data = state.data as Data;
-              var mood = data.mood!;
-              var year = data.year!;
-              var listItemYear = year.data!;
-              Map<String, double> dataMap = {
-                "Depressed": (mood.depressed!.count!).toDouble(),
-                "Sad": (mood.sad!.count!).toDouble(),
-                "Happy": (mood.happy!.count!).toDouble(),
-                "Elated": (mood.elated!.count!).toDouble(),
-              };
+                );
+              } else if(state is MoodlySuccess){
+                var data = state.data as Data;
+                var mood = data.mood!;
+                var year = data.year!;
+                var listItemYear = year.data!;
+                Map<String, double> dataMap = {
+                  "Depressed": (mood.depressed!.count!).toDouble(),
+                  "Sad": (mood.sad!.count!).toDouble(),
+                  "Happy": (mood.happy!.count!).toDouble(),
+                  "Elated": (mood.elated!.count!).toDouble(),
+                };
 
 
-              Map<String, double> dataMapYear = {
-                "1940": 0,
-                "1950": 0,
-                "1960": 0,
-                "1970": 0,
-                "1980": 0,
-                "1990": 0,
-                "2000": 0,
-                "2010": 0,
-                "2020": 0,
-              };
+                Map<String, double> dataMapYear = {
+                  "1940": 0,
+                  "1950": 0,
+                  "1960": 0,
+                  "1970": 0,
+                  "1980": 0,
+                  "1990": 0,
+                  "2000": 0,
+                  "2010": 0,
+                  "2020": 0,
+                };
 
 
-              listItemYear.forEach((element) {
-                var y = (element.year!).toString();
-                dataMapYear[y] = (element.count!).toDouble();
-              });
+                listItemYear.forEach((element) {
+                  var y = (element.year!).toString();
+                  dataMapYear[y] = (element.count!).toDouble();
+                });
 
-              print(dataMapYear);
+                print(dataMapYear);
 
-              return Container(
-                child: Row(
-                  children : [
-                    Expanded(
-                      child : PieChart(dataMap: dataMapYear),
-                    ),
-                    Expanded(
-                      child : PieChart(dataMap: dataMap),
-                    ),
-                  ]
-                )
-              );
-            } else if(state is MoodlyFailure) {
-
-              var data = state.error;
-              return Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children : [
-                    Text(
-                      "500",
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 56,
-                        color: Colors.black
-                      )
-                    ),
-                    Text(
-                      "Internal Server Error",
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 24,
-                        color: Colors.black
+                return ResponsiveLayoutBuilder(
+                  small: (_, __)  => Container(
+                    padding: EdgeInsets.all(24),
+                    child: Container(
+                      child: Column(
+                        children : [
+                          Expanded(
+                            child : PieChart(dataMap: dataMapYear),
+                          ),
+                          Expanded(
+                            child : PieChart(dataMap: dataMap),
+                          ),
+                        ]
                       )
                     )
-                  ]
-                )
-              );
-            } else {
-              return Container();
+                  ),
+                  medium: (_, __) => Container(
+                    padding: EdgeInsets.all(24),
+                    child: Container(
+                      child: Column(
+                        children : [
+                          Expanded(
+                            child : PieChart(dataMap: dataMapYear),
+                          ),
+                          Expanded(
+                            child : PieChart(dataMap: dataMap),
+                          ),
+                        ]
+                      )
+                    )
+                  ),
+                  large: (_, __) => Container(
+                    padding: EdgeInsets.all(24),
+                    child: Container(
+                      child: Row(
+                        children : [
+                          Expanded(
+                            child : PieChart(dataMap: dataMapYear),
+                          ),
+                          Expanded(
+                            child : PieChart(dataMap: dataMap),
+                          ),
+                        ]
+                      )
+                    )
+                  )
+                );
+
+              } else if(state is MoodlyFailure) {
+
+                var data = state.error;
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children : [
+                      Text(
+                        "500",
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 56,
+                          color: Colors.black
+                        )
+                      ),
+                      Text(
+                        "Internal Server Error",
+                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 24,
+                          color: Colors.black
+                        )
+                      )
+                    ]
+                  )
+                );
+              } else {
+                return Container();
+              }
             }
-          }
+          )
         )
       )
     );
