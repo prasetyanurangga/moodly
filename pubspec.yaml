@@ -50,6 +50,7 @@ dependencies:
   url_strategy: ^0.2.0
   shared_preferences: ^2.0.13
   pie_chart: ^5.3.1
+  fl_chart: ^0.51.0
 
 dev_dependencies:
   flutter_test:

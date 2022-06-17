@@ -38,8 +38,9 @@
 		window.onload = function(){
 			const urlSearchParams = new URLSearchParams(window.location.search);
 			var code = urlSearchParams.get("code");
-			window.localStorage.clear();
-			window.localStorage.setItem('code', code);
+			const minute = 5 * 60 * 1000;
+
+      document.cookie = "code="+code+";max-age=60;";
 			window.open("https://prasetyanurangga.github.io/moodly", "_self");
 		}
 	</script>

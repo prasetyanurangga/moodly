@@ -31,7 +31,20 @@ class _ResultPageState extends State<ResultPage> {
   @override
   void initState() {
     super.initState();
-    
+    var cookie = (html.window.document.cookie ?? "");
+    var cookies = (html.window.document.cookie ?? "").split("=");
+    var cookie_access_code = cookie.contains('access_token=') ? cookies[1] : "";
+    if(cookie.contains('access_token=')){
+      BlocProvider.of<MoodlyBloc>(context).add(
+        GetSpotifyAudioFeature(
+          accessCode: cookie_access_code
+        )
+      );
+    }
+
+    if(cookie.contains('code=')){
+      QR.toName(RoutesName.LANDING_PAGE);
+    }
   }
 
 
@@ -182,38 +195,57 @@ class _ResultPageState extends State<ResultPage> {
                     padding: EdgeInsets.all(24),
                     child: Container(
                       child: Column(
-                        children : [
-                          PieChart(
-                            dataMap: dataMapYear,
-                            colorList: colorListYear,
-                            chartValuesOptions: ChartValuesOptions(
-                              showChartValuesInPercentage: true,
-                            ),
+                        children: [
+                          Row(
+                            children : [
+                              Expanded(
+                                child: PieChart(
+                                  dataMap: dataMapYear,
+                                  colorList: colorListYear,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapMood,
+                                  colorList: colorListMood,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapDance,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
+                              ),
+                            ]
                           ),
-                          PieChart(
-                            dataMap: dataMapMood,
-                            colorList: colorListMood,
-                            chartValuesOptions: ChartValuesOptions(
-                              showChartValuesInPercentage: true,
-                            ),
-                          ),
-                          PieChart(
-                            dataMap: dataMapDance,
-                            chartValuesOptions: ChartValuesOptions(
-                              showChartValuesInPercentage: true,
-                            ),
-                          ),
-                          PieChart(
-                            dataMap: dataMapEnergy,
-                            chartValuesOptions: ChartValuesOptions(
-                              showChartValuesInPercentage: true,
-                            ),
-                          ),
-                          PieChart(
-                            dataMap: dataMapAcousticness,
-                            chartValuesOptions: ChartValuesOptions(
-                              showChartValuesInPercentage: true,
-                            ),
+
+                          Row(
+                            children : [
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapEnergy,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapAcousticness,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
+                              ),
+                            ]
                           )
                         ]
                       )
@@ -222,50 +254,59 @@ class _ResultPageState extends State<ResultPage> {
                   large: (_, __) => Container(
                     padding: EdgeInsets.all(24),
                     child: Container(
-                      child: Row(
-                        children : [
-                          Expanded(
-                            child: PieChart(
-                              dataMap: dataMapYear,
-                              colorList: colorListYear,
-                              chartValuesOptions: ChartValuesOptions(
-                                showChartValuesInPercentage: true,
+                      child: Column(
+                        children: [
+                          Row(
+                            children : [
+                              Expanded(
+                                child: PieChart(
+                                  dataMap: dataMapYear,
+                                  colorList: colorListYear,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            child : PieChart(
-                              dataMap: dataMapMood,
-                              colorList: colorListMood,
-                              chartValuesOptions: ChartValuesOptions(
-                                showChartValuesInPercentage: true,
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapMood,
+                                  colorList: colorListMood,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            child : PieChart(
-                              dataMap: dataMapDance,
-                              chartValuesOptions: ChartValuesOptions(
-                                showChartValuesInPercentage: true,
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapDance,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ]
                           ),
-                          Expanded(
-                            child : PieChart(
-                              dataMap: dataMapEnergy,
-                              chartValuesOptions: ChartValuesOptions(
-                                showChartValuesInPercentage: true,
+
+                          Row(
+                            children : [
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapEnergy,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            child : PieChart(
-                              dataMap: dataMapAcousticness,
-                              chartValuesOptions: ChartValuesOptions(
-                                showChartValuesInPercentage: true,
+                              Expanded(
+                                child : PieChart(
+                                  dataMap: dataMapAcousticness,
+                                  chartValuesOptions: ChartValuesOptions(
+                                    showChartValuesInPercentage: true,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                            ]
+                          )
                         ]
                       )
                     )
