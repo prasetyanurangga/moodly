@@ -54,9 +54,9 @@ class MyApp extends StatelessWidget {
               Theme.of(context).textTheme, 
             ),
           ),
-          initialRoute: '/',
+          initialRoute: '/landing',
           routes: {
-            '/': (context) => LandingPage(),
+            '/landing': (context) => LandingPage(),
             '/login': (context) => LoginPage(),
             '/result': (context) => ResultPage(),
             '/share': (context) => SharePage(),
