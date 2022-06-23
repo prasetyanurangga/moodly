@@ -22,6 +22,16 @@ class ApiProvider{
     return dio;
   }
 
+  Dio getDioAnother(){
+    final baseUrl = const String.fromEnvironment('BASE_URL', defaultValue: '');
+    var options = BaseOptions(
+      baseUrl: baseUrl,
+    );
+    Dio dio = Dio(options);
+
+    return dio;
+  }
+
   Future<Response> GetSpotifyAudioFeature(String accessCode) async {
     String _endpoint = "/get_spotify";
     Response response;
@@ -41,7 +51,7 @@ class ApiProvider{
     Response response;
 
     try {
-      response = await getDio(accessCode).get(
+      response = await getDioAnother().get(
         _endpoint,
         queryParameters: {'id': id}
       );
