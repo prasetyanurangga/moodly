@@ -20,17 +20,17 @@ class RouteGenerator {
     ),
     QRoute(
       name: RoutesName.LOGIN_PAGE,
-      path: '/#/login', 
+      path: '/login', 
       builder: () => LoginPage()
     ),
     QRoute(
       name: RoutesName.RESULT_PAGE,
-      path: '/#/result',
+      path: '/result',
       builder: () => ResultPage()
     ),
     QRoute(
       name: RoutesName.SHARE_PAGE,
-      path: '/#/share',
+      path: '/share',
       builder: () => SharePage()
     ),
   ];
