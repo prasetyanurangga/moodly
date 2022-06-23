@@ -9,14 +9,15 @@ import 'package:moodly/pages/landing_page.dart';
 import 'package:moodly/pages/result_page.dart';
 import 'package:moodly/pages/login_page.dart';
 import 'package:moodly/pages/share_page.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 
  
 
 
 void main() {
-  setUrlStrategy(PathUrlStrategy());
+  WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
