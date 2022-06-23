@@ -44,7 +44,8 @@ class _ResultPageState extends State<ResultPage> {
     }
 
     if(cookie.contains('code=')){
-      QR.toName(RoutesName.LANDING_PAGE);
+      
+      Navigator.pushNamed(context, '/landing');
     }
   }
 

@@ -7,7 +7,6 @@ import 'package:moodly/blocs/moodly_bloc/moodly_state.dart';
 import 'package:moodly/models/moodly_response_model.dart';
 import 'package:moodly/components/card_chart.dart';
 import 'package:moodly/router/router_name.dart';
-import 'package:qlevar_router/qlevar_router.dart';
 import 'dart:html' as html;
 import 'package:uni_links/uni_links.dart';
 import 'dart:async';
@@ -32,17 +31,17 @@ class _SharePageState extends State<SharePage> {
   @override
   void initState() {
     super.initState();
-    final id = QR.params['id'].toString() ?? "";
-    print(id);
-    if(id != null && id != ""){
+    String myurl = Uri.base.toString();
+    Map<String, String>? parameter = Uri.base.queryParameters;
+    if(parameter != null){
+      String id = parameter["id"] ?? "";
       BlocProvider.of<MoodlyBloc>(context).add(
         GetSpotifyAudioFeatureById(
           id: id
         )
       );
     } else {
-      
-    print(id);
+      QR.toName(RoutesName.LANDING_PAGE);
     }
   }
 

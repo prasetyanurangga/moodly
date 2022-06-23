@@ -4,10 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moodly/blocs/moodly_bloc/moodly_bloc.dart';
 import 'package:moodly/providers/api_provider.dart';
 import 'package:moodly/repositories/main_repository.dart';
-import 'package:moodly/router/router_name.dart';
-import 'package:moodly/router/router_generator.dart';
 import 'package:moodly/pages/not_found_page.dart';
-import 'package:qlevar_router/qlevar_router.dart';
+import 'package:moodly/pages/landing_page.dart';
+import 'package:moodly/pages/result_page.dart';
+import 'package:moodly/pages/login_page.dart';
+import 'package:moodly/pages/share_page.dart';
+
+
 
  
 
@@ -24,8 +27,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-    QR.settings.notFoundPage = QRoute(path: '/404', builder: ()=> NotFoundPage());
 
     return MultiRepositoryProvider(
       providers: [
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
             create: (context)  => MoodlyBloc(),
           ),
         ],
-        child: MaterialApp.router(
+        child: MaterialApp(
           title: 'Moodly',
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -52,8 +53,13 @@ class MyApp extends StatelessWidget {
               Theme.of(context).textTheme, 
             ),
           ),
-          routeInformationParser: QRouteInformationParser(),
-          routerDelegate: QRouterDelegate(RouteGenerator.routes)
+          initialRoute: '/',
+          routes: {
+            '/': (context) => LandingPage(),
+            '/login': (context) => LoginPage(),
+            '/result': (context) => ResultPage(),
+            '/share': (context) => SharePage(),
+          },
         )
       ),
     );

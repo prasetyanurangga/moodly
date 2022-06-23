@@ -50,7 +50,7 @@ class _LandingPageState extends State<LandingPage> {
       );
 
 
-      QR.toName(RoutesName.RESULT_PAGE);
+      Navigator.pushNamed(context, '/result');
     } else {
       if(cookie.contains('code=')){
 
@@ -84,13 +84,15 @@ class _LandingPageState extends State<LandingPage> {
             )
           );
 
-          QR.toName(RoutesName.RESULT_PAGE);
+          Navigator.pushNamed(context, '/result');
 
         } else {
-          QR.toName(RoutesName.LOGIN_PAGE);
+          
+          Navigator.pushNamed(context, '/login');
         }
       } else {
-        QR.toName(RoutesName.LOGIN_PAGE);
+        
+        Navigator.pushNamed(context, '/login');
       }
     }
 

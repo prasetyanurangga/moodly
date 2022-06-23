@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moodly/router/router_name.dart';
-import 'package:moodly/pages/login_page.dart';
 import 'package:moodly/pages/landing_page.dart';
 import 'package:moodly/pages/result_page.dart';
 import 'package:moodly/pages/login_page.dart';

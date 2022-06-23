@@ -39,11 +39,11 @@ class _LoginPageState extends State<LoginPage> {
           accessCode: cookie_access_code
         )
       );
-      QR.toName(RoutesName.RESULT_PAGE);
+      Navigator.pushNamed(context, '/result');
     }
 
     if(cookie.contains('code=')){
-      QR.toName(RoutesName.LANDING_PAGE);
+      Navigator.pushNamed(context, '/landing');
     }
     
   }
