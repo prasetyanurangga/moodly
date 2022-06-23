@@ -32,10 +32,9 @@ class _SharePageState extends State<SharePage> {
   @override
   void initState() {
     super.initState();
-    String myurl = Uri.base.toString(); //get complete url
-    Map<String, String>? parameter = Uri.base.queryParameters;
-    if(parameter != null){
-      String id = parameter["id"] ?? "";
+    final id = QR.params['id'].toString() ?? "";
+    print(id);
+    if(id != null && id != ""){
       BlocProvider.of<MoodlyBloc>(context).add(
         GetSpotifyAudioFeatureById(
           id: id
