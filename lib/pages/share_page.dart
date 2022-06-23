@@ -41,7 +41,8 @@ class _SharePageState extends State<SharePage> {
         )
       );
     } else {
-      QR.toName(RoutesName.LANDING_PAGE);
+      // Navigator.pushNamed(context, '/landing');
+      print(parameter);
     }
   }
 
