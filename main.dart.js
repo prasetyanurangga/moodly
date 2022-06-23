@@ -61961,7 +61961,7 @@ s($,"av2","aih",()=>A.bN("\\\\(.)",!0))
 s($,"avl","aiu",()=>A.bN('[()<>@,;:"\\\\/\\[\\]?={} \\t\\x00-\\x1F\\x7F]',!0))
 s($,"avw","aiz",()=>A.bN("(?:"+$.aig().a+")*",!0))
 s($,"ato","ahd",()=>{var q=null
-return A.b([A.oO(new A.Xw(),q,q,"landing",q,"/"),A.oO(new A.Xx(),q,q,"login",q,"/#/login"),A.oO(new A.Xy(),q,q,"result",q,"/#/result"),A.oO(new A.Xz(),q,q,"share",q,"/#/share")],A.a9("r<v4>"))})
+return A.b([A.oO(new A.Xw(),q,q,"landing",q,"/"),A.oO(new A.Xx(),q,q,"login",q,"/login"),A.oO(new A.Xy(),q,q,"result",q,"/result"),A.oO(new A.Xz(),q,q,"share",q,"/share")],A.a9("r<v4>"))})
 s($,"avg","abj",()=>new A.Ou(A.a9("lG").a($.aba()),null))
 s($,"atD","ahm",()=>new A.Dm(A.bN("/",!0),A.bN("[^/]$",!0),A.bN("^/",!0)))
 s($,"atF","Mq",()=>new A.FI(A.bN("[/\\\\]",!0),A.bN("[^/\\\\]$",!0),A.bN("^(\\\\\\\\[^\\\\]+\\\\[^\\\\/]+|[a-zA-Z]:[/\\\\])",!0),A.bN("^[/\\\\](?![/\\\\])",!0)))
