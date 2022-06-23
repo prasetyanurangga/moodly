@@ -21,26 +21,17 @@ class RouteGenerator {
     QRoute(
       name: RoutesName.LOGIN_PAGE,
       path: '/login', 
-      builder: () => login.LoginPage(),
-      middleware: [
-        DefferedLoader(login.loadLibrary),
-      ],
+      builder: () => LoginPage()
     ),
     QRoute(
       name: RoutesName.RESULT_PAGE,
       path: '/result',
-      builder: () => result.ResultPage(),
-      middleware: [
-        DefferedLoader(result.loadLibrary),
-      ],
+      builder: () => ResultPage()
     ),
     QRoute(
       name: RoutesName.SHARE_PAGE,
       path: '/share',
-      builder: () => share.SharePage(),
-      middleware: [
-        DefferedLoader(share.loadLibrary),
-      ],
+      builder: () => SharePage()
     ),
   ];
 
