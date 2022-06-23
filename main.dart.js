@@ -57119,7 +57119,7 @@ $S:387}
 A.Ea.prototype={
 R(a,b){var s=null,r=A.a([A.agA(new A.Xh(),!0,t.KK),A.agA(new A.Xi(),!0,t.I4)],t._Z),q=A.a([new A.tf(new A.Xj(),s,s,t.HI)],t.uJ),p=A.b4(b).R8,o=A.fl(p.a),n=A.fl(p.b),m=A.fl(p.c),l=A.fl(p.e),k=A.fl(p.f),j=A.fl(p.r),i=A.fl(p.w),h=A.fl(p.x),g=A.fl(p.y),f=A.fl(p.z),e=A.fl(p.Q)
 h=A.agZ(s,B.qj,A.abW(s,s,s,g,f,A.fl(p.as),e,s,s,s,o,n,m,l,k,j,s,s,s,s,s,s,A.fl(p.ax),i,h,s,s,s))
-return A.arp(A.arm(new A.va(A.av(["/",new A.Xk(),"/login",new A.Xl(),"/result",new A.Xm(),"/share",new A.Xn()],t.N,t.Ab),"/","Moodly",h,s),q),r)}}
+return A.arp(A.arm(new A.va(A.av(["/landing",new A.Xk(),"/login",new A.Xl(),"/result",new A.Xm(),"/share",new A.Xn()],t.N,t.Ab),"/landing","Moodly",h,s),q),r)}}
 A.Xh.prototype={
 $1(a){return new A.mm(new A.k2())},
 $S:388}
