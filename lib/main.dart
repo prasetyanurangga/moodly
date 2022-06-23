@@ -9,14 +9,14 @@ import 'package:moodly/pages/landing_page.dart';
 import 'package:moodly/pages/result_page.dart';
 import 'package:moodly/pages/login_page.dart';
 import 'package:moodly/pages/share_page.dart';
-
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 
  
 
 
 void main() {
-  QR.setUrlStrategy();
+  setUrlStrategy(PathUrlStrategy());
   runApp(const MyApp());
 }
 
