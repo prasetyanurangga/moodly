@@ -55089,7 +55089,7 @@ break
 case 2:p=q.c
 p.toString
 A.zI(p,t.g4).C(0,new A.hz(n))
-$.aT().k5("/result")
+$.aT().k5("result")
 s=3
 break
 case 4:s=m?5:7
@@ -55107,10 +55107,10 @@ window.localStorage.setItem("refresh_token",p.j(j,"refresh_token"))
 m=q.c
 m.toString
 A.zI(m,t.g4).C(0,new A.hz(p.j(j,"access_token")))
-$.aT().k5("/result")}else $.aT().k5("/login")
+$.aT().k5("result")}else $.aT().k5("login")
 s=6
 break
-case 7:$.aT().k5("/login")
+case 7:$.aT().k5("login")
 case 6:case 3:return A.L(null,r)}})
 return A.M($async$ot,r)},
 aQ(){this.cu()},
@@ -55132,7 +55132,7 @@ p=r?q[1]:""
 if(r){r=this.c
 r.toString
 A.zI(r,t.g4).C(0,new A.hz(p))
-$.aT().k5("/result")}if(B.b.v(s,"code="))$.aT().k5("/")},
+$.aT().k5("result")}if(B.b.v(s,"code="))$.aT().k5("landing")},
 aQ(){this.cu()},
 yq(){var s=0,r=A.N(t.z),q,p,o,n,m,l,k,j
 var $async$yq=A.O(function(a,b){if(a===1)return A.K(b,r)
@@ -55196,7 +55196,7 @@ r=B.b.v(s,"access_token=")
 p=r?q[1]:""
 if(r){r=this.c
 r.toString
-A.zI(r,t.g4).C(0,new A.hz(p))}if(B.b.v(s,"code="))$.aT().k5("/")},
+A.zI(r,t.g4).C(0,new A.hz(p))}if(B.b.v(s,"code="))$.aT().k5("landing")},
 aQ(){this.cu()},
 Tf(){var s=null
 return A.Em(A.adR(A.bX(s,A.abN(new A.a5j(this),t.g4,t.RT),s,s,s,s,s,s)))},
@@ -61961,7 +61961,7 @@ s($,"av2","aih",()=>A.bN("\\\\(.)",!0))
 s($,"avl","aiu",()=>A.bN('[()<>@,;:"\\\\/\\[\\]?={} \\t\\x00-\\x1F\\x7F]',!0))
 s($,"avw","aiz",()=>A.bN("(?:"+$.aig().a+")*",!0))
 s($,"ato","ahd",()=>{var q=null
-return A.b([A.oO(new A.Xw(),q,q,"/",q,"/"),A.oO(new A.Xx(),q,q,"/login",q,"/login"),A.oO(new A.Xy(),q,q,"/result",q,"/result"),A.oO(new A.Xz(),q,q,"/share",q,"/share")],A.a9("r<v4>"))})
+return A.b([A.oO(new A.Xw(),q,q,"landing",q,"/"),A.oO(new A.Xx(),q,q,"login",q,"/#/login"),A.oO(new A.Xy(),q,q,"result",q,"/#/result"),A.oO(new A.Xz(),q,q,"share",q,"/#/share")],A.a9("r<v4>"))})
 s($,"avg","abj",()=>new A.Ou(A.a9("lG").a($.aba()),null))
 s($,"atD","ahm",()=>new A.Dm(A.bN("/",!0),A.bN("[^/]$",!0),A.bN("^/",!0)))
 s($,"atF","Mq",()=>new A.FI(A.bN("[/\\\\]",!0),A.bN("[^/\\\\]$",!0),A.bN("^(\\\\\\\\[^\\\\]+\\\\[^\\\\/]+|[a-zA-Z]:[/\\\\])",!0),A.bN("^[/\\\\](?![/\\\\])",!0)))
