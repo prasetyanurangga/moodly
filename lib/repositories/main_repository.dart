@@ -20,4 +20,18 @@ class MainRepository{
       return ResponseData.error("Error");
     }
   }
+
+  Future<ResponseData> GetSpotifyAudioFeatureById(String id) async{
+    Response response = await _apiProvider.GetSpotifyAudioFeatureById(id);
+    MoodlyResponseModel responseJust = MoodlyResponseModel.fromJson(response.data);
+    if (responseJust == null) {
+      return ResponseData.connectivityError();
+    }
+
+    if (response.statusCode == 200) {
+      return ResponseData.success(responseJust);
+    } else {
+      return ResponseData.error("Error");
+    }
+  }
 }

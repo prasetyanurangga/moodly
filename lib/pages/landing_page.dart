@@ -65,7 +65,7 @@ class _LandingPageState extends State<LandingPage> {
             "code": cookie_code,
             "client_id": clientId,
             "client_secret": clientSecret,
-            "redirect_uri": 'https://prasetyanurangga.github.io/moodly/callback.html',
+            "redirect_uri": 'http://localhost:12345/callback.html',
             "grant_type": "authorization_code",
             "code_verifier" : "TjDRHMNr74-x~O2~n-sf6QB0Ij8RZPGL5H2~I9V__meEyr5TQyYP1QbnBGHgM7pXt~XkPZf3UzNor~IK2LsOY1y7Ya6zgGl_E5KRrR_8rk7I7D.eRAE0vNxd7VVekO02"
           }

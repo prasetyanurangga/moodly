@@ -19,31 +19,28 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class ResultPage extends StatefulWidget {
-  const ResultPage({Key? key}) : super(key: key);
+class SharePage extends StatefulWidget {
+  const SharePage({Key? key}) : super(key: key);
 
   @override
-  State<ResultPage> createState() => _ResultPageState();
+  State<SharePage> createState() => _SharePageState();
 }
 
-class _ResultPageState extends State<ResultPage> {
+class _SharePageState extends State<SharePage> {
 
 
   @override
   void initState() {
     super.initState();
-    var cookie = (html.window.document.cookie ?? "");
-    var cookies = (html.window.document.cookie ?? "").split("=");
-    var cookie_access_code = cookie.contains('access_token=') ? cookies[1] : "";
-    if(cookie.contains('access_token=')){
+    String myurl = Uri.base.toString(); //get complete url
+    String id = Uri.base.queryParameters["id"];
+    if(id != null){
       BlocProvider.of<MoodlyBloc>(context).add(
-        GetSpotifyAudioFeature(
-          accessCode: cookie_access_code
+        GetSpotifyAudioFeatureById(
+          id: id
         )
       );
-    }
-
-    if(cookie.contains('code=')){
+    } else {
       QR.toName(RoutesName.LANDING_PAGE);
     }
   }

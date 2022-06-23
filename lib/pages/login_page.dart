@@ -10,7 +10,7 @@ import 'package:uni_links/uni_links.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'dart:convert';
-import 'package:spotify/spotify.dart';
+import 'package:spotify/spotify.dart' as spotify;
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:html' as html;
@@ -58,9 +58,9 @@ class _LoginPageState extends State<LoginPage> {
     
     final clientId = const String.fromEnvironment('CLIENT_ID', defaultValue: '');
     final clientSecret = const String.fromEnvironment('CLIENT_SECRET', defaultValue: '');
-    final credentials = SpotifyApiCredentials(clientId, clientSecret);
-    final grant = SpotifyApi.authorizationCodeGrant(credentials);
-    final redirectUri = 'https://prasetyanurangga.github.io/moodly/callback.html';
+    final credentials = spotify.SpotifyApiCredentials(clientId, clientSecret);
+    final grant = spotify.SpotifyApi.authorizationCodeGrant(credentials);
+    final redirectUri = 'http://localhost:12345/callback.html';
     final scopes = ['user-top-read', 'playlist-read-private'];
 
     final authUri = grant.getAuthorizationUrl(
@@ -76,112 +76,62 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildMain(){
     return Scaffold(
-      body: ResponsiveLayoutBuilder(
-        small: (_, __)  => Container(
-          padding: EdgeInsets.all(24),
-          child: Center(
-            child: Container(
-              width: 600,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Moodly",
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
-                      fontSize: 56.0, 
-                      fontWeight: FontWeight.w900,
-                      color: Colors.black
-                    )
-                  ),
-                  SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () {
-                      onLogin();
-                    },
-                    child: Text(
-                      "Login",
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontSize: 16.0, 
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black
-                      ),
-                    ),
+      body: Container(
+        padding: EdgeInsets.all(24),
+        child: Center(
+          child: Container(
+            width: 600,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Moodly",
+                  style: Theme.of(context).textTheme.headline2?.copyWith(
+                    fontSize: 56.0, 
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black
                   )
-                ]
-              )
-            )
-          ) 
-        ),
-        medium: (_, __) => Container(
-          padding: EdgeInsets.all(24),
-          child: Center(
-            child: Container(
-              width: 600,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Moodly",
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
-                      fontSize: 56.0, 
-                      fontWeight: FontWeight.w900,
-                      color: Colors.black
-                    )
-                  ),
-                  SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () {
-                      onLogin();
-                    },
-                    child: Text(
-                      "Login",
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontSize: 16.0, 
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black
-                      ),
+                ),
+                SizedBox(height: 16),
+
+                ElevatedButton(  
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(24.0),
                     ),
-                  )
-                ]
-              )
-            )
-          ) 
-        ),
-        large: (_, __) => Container(
-          padding: EdgeInsets.all(24),
-          child: Center(
-            child: Container(
-              width: 600,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Moodly",
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
-                      fontSize: 56.0, 
-                      fontWeight: FontWeight.w900,
-                      color: Colors.black
-                    )
                   ),
-                  SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () {
-                      onLogin();
-                    },
-                    child: Text(
-                      "Login",
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontSize: 16.0, 
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black
-                      ),
-                    ),
+
+                  onPressed: () {
+                    onLogin();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+
+                        Image.asset(
+                          'assets/icons/Spotify.png',
+                          height: 24,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          "Sign in with Spotify",
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black
+                          )
+                        )
+                      ],
+                    )
                   )
-                ]
-              )
+                ),
+                
+              ]
             )
-          ) 
-        )
+          )
+        ) 
       )
     );
   }

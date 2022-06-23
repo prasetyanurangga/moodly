@@ -31,6 +31,26 @@ class MoodlyBloc extends Bloc<MoodlyEvent, MoodlyState> {
         emit(MoodlyFailure(error: error.toString()));
       }
     });
+
+    on<GetSpotifyAudioFeatureById>((event, emit) async {
+      emit(MoodlyLoading());
+      try {
+        final ResponseData<dynamic> response = await mainRepository.GetSpotifyAudioFeatureById(event.id);
+        var finalResponse = response.data;
+        if (response.status == Status.ConnectivityError) {
+          emit(const MoodlyFailure(error: ""));
+        }
+        if (response.status == Status.Success) {
+          emit(MoodlySuccess(data: finalResponse.data as Data));
+        } else {
+          print( response.message);
+          emit(MoodlyFailure(error: response.message ??  "Error"));
+        }
+      } catch (error) {
+        print(error);
+        emit(MoodlyFailure(error: error.toString()));
+      }
+    });
   }
 
 }

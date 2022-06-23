@@ -35,4 +35,19 @@ class ApiProvider{
     }
     return response;
   }
+
+  Future<Response> GetSpotifyAudioFeatureById(String id) async {
+    String _endpoint = "/get_user";
+    Response response;
+
+    try {
+      response = await getDio(accessCode).get(
+        _endpoint,
+        queryParameters: {'id': id}
+      );
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+    return response;
+  }
 }

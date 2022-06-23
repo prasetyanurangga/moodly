@@ -13,3 +13,10 @@ class GetSpotifyAudioFeature extends MoodlyEvent {
     required this.accessCode
   });
 }
+
+class GetSpotifyAudioFeatureById extends MoodlyEvent {
+  final String id;
+  GetSpotifyAudioFeatureById({
+    required this.id
+  });
+}
