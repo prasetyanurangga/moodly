@@ -9,8 +9,8 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
 "callback.html": "8f21ce1c0793904a571d31767dd48c87",
-"index.html": "77c8432aece041282a1ba1e5705fc702",
-"/": "77c8432aece041282a1ba1e5705fc702",
+"index.html": "cf19229cd41eb7c39ffffd11b20ee39a",
+"/": "cf19229cd41eb7c39ffffd11b20ee39a",
 "flutter.js": "0816e65a103ba8ba51b174eeeeb2cb67",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
@@ -18,18 +18,13 @@ const RESOURCES = {
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "manifest.json": "72be73c3860c2bd77678fdf83defc120",
 "version.json": "d68ab59c2f2a7dd775ab06b2c1ec5f97",
-"main.dart.js_2.part.js": "c0609b2b0272225c34bbf5657d20b26a",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
 "assets/AssetManifest.json": "b049df26dcc0aef9f1d24fa7293a7256",
 "assets/assets/icons/spotify.png": "a162f1ee10d257abc6325e58fbb2a51a",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/NOTICES": "9257fe3dd8a7ac319902c7dac727f6fd",
-"main.dart.js_5.part.js": "9194996dead366d90510c5786b2be415",
-"main.dart.js": "e44b441f94693531cf66c507df0db5a1",
-"main.dart.js_1.part.js": "2bcb042582136009605c5976598b3c50",
-"main.dart.js_3.part.js": "9d49d09d92c52cc45dfcc7de02dd5c02",
-"main.dart.js_4.part.js": "abb882c693d96d1c729fda9a0cd59fff"
+"main.dart.js": "9d18b14d07b9e3929e8605ddc28649c9"
 };
 
 // The application shell files that are downloaded before a service worker can
