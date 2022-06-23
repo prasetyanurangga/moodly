@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
               Theme.of(context).textTheme, 
             ),
           ),
-          routeInformationParser: const QRouteInformationParser(),
+          routeInformationParser: QRouteInformationParser(),
           routerDelegate: QRouterDelegate(RouteGenerator.routes)
         )
       ),

@@ -41,7 +41,8 @@ class _SharePageState extends State<SharePage> {
         )
       );
     } else {
-      QR.toName(RoutesName.LANDING_PAGE);
+      
+    print(id);
     }
   }
 
