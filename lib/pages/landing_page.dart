@@ -34,7 +34,10 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-
+    final loader = document.getElementById('loading_indicator');
+    if(loader != null) {
+      loader.remove();
+    }
     getSpotify();
     
   }

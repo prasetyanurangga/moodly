@@ -41,15 +41,17 @@ class _SharePageState extends State<SharePage> {
 
     var cookie =  CookieManager();
 
-    cookie.addToCookie("code","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
-    cookie.addToCookie("access_token","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
-    cookie.addToCookie("id","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
-    if(cookie.containCookie('id')){
+    if(cookie.containCookie('id') && cookie.getCookie('id') != ""){
       BlocProvider.of<MoodlyBloc>(context).add(
         GetSpotifyAudioFeatureById(
           id: cookie.getCookie('id')
         )
       );
+
+
+      cookie.addToCookie("code","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
+      cookie.addToCookie("access_token","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
+      cookie.addToCookie("id","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
     }
   }
 
