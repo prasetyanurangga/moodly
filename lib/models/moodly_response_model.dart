@@ -22,8 +22,9 @@ class Data {
   Energy? energy;
   Acousticness? acousticness;
   Year? year;
+  User? user;
 
-  Data({this.dance, this.mood, this.energy, this.year, this.acousticness});
+  Data({this.dance, this.mood, this.energy, this.year, this.acousticness, this.user});
 
   Data.fromJson(Map<String, dynamic> json) {
     dance = json['dance'] != null ? new Dance.fromJson(json['dance']) : null;
@@ -31,6 +32,7 @@ class Data {
     energy = json['energy'] != null ? new Energy.fromJson(json['energy']) : null;
     acousticness = json['acousticness'] != null ? new Acousticness.fromJson(json['acousticness']) : null;
     year = json['year'] != null ? new Year.fromJson(json['year']) : null;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -209,6 +211,28 @@ class Track {
     data['name'] = this.name;
     data['artists'] = this.artists;
     data['external_url'] = this.externalUrl;
+    return data;
+  }
+}
+
+class User {
+  String? displayName;
+  String? email;
+  String? id;
+
+  User({this.id, this.email, this.displayName});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    email = json['email'];
+    displayName = json['display_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.email;
+    data['display_name'] = this.displayName;
     return data;
   }
 }

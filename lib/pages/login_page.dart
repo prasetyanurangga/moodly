@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moodly/blocs/moodly_bloc/moodly_bloc.dart';
 import 'package:moodly/blocs/moodly_bloc/moodly_event.dart';
 import 'package:moodly/router/router_name.dart';
+import 'package:moodly/utils/cookie_manager.dart';
 import 'package:qlevar_router/qlevar_router.dart';
 import 'dart:html' as html;
 import 'package:uni_links/uni_links.dart';
@@ -30,19 +31,19 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    var cookie = (html.window.document.cookie ?? "");
-    var cookies = (html.window.document.cookie ?? "").split("=");
-    var cookie_access_code = cookie.contains('access_token=') ? cookies[1] : "";
-    if(cookie.contains('access_token=')){
+    
+    var cookie =  CookieManager();
+
+    if(cookie.containCookie('access_token')){
       BlocProvider.of<MoodlyBloc>(context).add(
         GetSpotifyAudioFeature(
-          accessCode: cookie_access_code
+          accessCode: cookie.getCookie("access_token")
         )
       );
       Navigator.pushNamed(context, '/result');
     }
 
-    if(cookie.contains('code=')){
+    if(cookie.containCookie('code')){
       Navigator.pushNamed(context, '/landing');
     }
     
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
     final clientSecret = const String.fromEnvironment('CLIENT_SECRET', defaultValue: '');
     final credentials = spotify.SpotifyApiCredentials(clientId, clientSecret);
     final grant = spotify.SpotifyApi.authorizationCodeGrant(credentials);
-    final redirectUri = 'http://localhost:12345/callback.html';
+    final redirectUri = 'https://prasetyanurangga.github.io/moodly/callback.html';
     final scopes = ['user-top-read', 'playlist-read-private'];
 
     final authUri = grant.getAuthorizationUrl(

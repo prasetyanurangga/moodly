@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moodly/blocs/moodly_bloc/moodly_bloc.dart';
 import 'package:moodly/blocs/moodly_bloc/moodly_event.dart';
 import 'package:moodly/blocs/moodly_bloc/moodly_state.dart';
+import 'package:moodly/utils/cookie_manager.dart';
 import 'package:moodly/models/moodly_response_model.dart';
 import 'package:moodly/components/card_chart.dart';
 import 'package:moodly/router/router_name.dart';
@@ -17,6 +18,8 @@ import 'package:spotify/spotify.dart';
 import 'package:dio/dio.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';  
 
 
 class ResultPage extends StatefulWidget {
@@ -28,22 +31,23 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
 
+  late FToast fToast;
 
   @override
   void initState() {
     super.initState();
-    var cookie = (html.window.document.cookie ?? "");
-    var cookies = (html.window.document.cookie ?? "").split("=");
-    var cookie_access_code = cookie.contains('access_token=') ? cookies[1] : "";
-    if(cookie.contains('access_token=')){
+    fToast = FToast();
+    fToast.init(context);
+    var cookie =  CookieManager();
+    if(cookie.containCookie('access_token')){
       BlocProvider.of<MoodlyBloc>(context).add(
         GetSpotifyAudioFeature(
-          accessCode: cookie_access_code
+          accessCode: cookie.getCookie('access_token')
         )
       );
     }
 
-    if(cookie.contains('code=')){
+    if(cookie.containCookie('code') || !cookie.containCookie('access_token')){
       
       Navigator.pushNamed(context, '/landing');
     }
@@ -54,6 +58,7 @@ class _ResultPageState extends State<ResultPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
+
 
   final colorListMood = <Color>[
     Color(0xFF142F43),
@@ -83,147 +88,112 @@ class _ResultPageState extends State<ResultPage> {
 
   Widget _buildMain(){
     return Scaffold(
-      body : SingleChildScrollView(
-        child: Container(
-          child : BlocBuilder<MoodlyBloc, MoodlyState>(
-            builder: (context, state) {
-              if(state is MoodlyLoading){
-                return Center(
-                  child: Text(
-                    "Loading",
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32,
-                      color: Colors.black
-                    )
+      body : Container(
+        child : BlocBuilder<MoodlyBloc, MoodlyState>(
+          builder: (context, state) {
+            if(state is MoodlyLoading){
+              return Center(
+                child: Text(
+                  "Loading",
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 32,
+                    color: Colors.black
                   )
-                );
-              } else if(state is MoodlySuccess){
-                var data = state.data as Data;
-                var mood = data.mood!;
-                var energy = data.energy!;
-                var acousticness = data.acousticness!;
-                var dance = data.dance!;
-                var year = data.year!;
-                var listItemYear = year.data!;
+                )
+              );
+            } else if(state is MoodlySuccess){
+              var data = state.data as Data;
+              var mood = data.mood!;
+              var energy = data.energy!;
+              var acousticness = data.acousticness!;
+              var dance = data.dance!;
+              var year = data.year!;
+              var listItemYear = year.data!;
+              var user = data.user!;
 
-                Map<String, double> dataMapMood = {
-                  "Depressed": percent(mood.depressed!.count!, mood.total!).toDouble(),
-                  "Sad": percent(mood.sad!.count!, mood.total!).toDouble(),
-                  "Happy": percent(mood.happy!.count!, mood.total!).toDouble(),
-                  "Elated": percent(mood.elated!.count!, mood.total!).toDouble(),
-                };
+              Map<String, double> dataMapMood = {
+                "Depressed": percent(mood.depressed!.count!, mood.total!).toDouble(),
+                "Sad": percent(mood.sad!.count!, mood.total!).toDouble(),
+                "Happy": percent(mood.happy!.count!, mood.total!).toDouble(),
+                "Elated": percent(mood.elated!.count!, mood.total!).toDouble(),
+              };
 
-                Map<String, double> dataMapEnergy = {
-                  "High Energy": percent(energy.highEnergy!.count!, mood.total!).toDouble(),
-                  "Chill": percent(energy.chill!.count!, mood.total!).toDouble(),
-                };
+              Map<String, double> dataMapEnergy = {
+                "High Energy": percent(energy.highEnergy!.count!, mood.total!).toDouble(),
+                "Chill": percent(energy.chill!.count!, mood.total!).toDouble(),
+              };
 
-                Map<String, double> dataMapAcousticness = {
-                  "Acoustic": percent(acousticness.acoustic!.count!, mood.total!).toDouble(),
-                  "Non Acoustic": percent(acousticness.nonAcoustic!.count!, mood.total!).toDouble(),
-                };
+              Map<String, double> dataMapAcousticness = {
+                "Acoustic": percent(acousticness.acoustic!.count!, mood.total!).toDouble(),
+                "Non Acoustic": percent(acousticness.nonAcoustic!.count!, mood.total!).toDouble(),
+              };
 
-                Map<String, double> dataMapDance = {
-                  "Party": percent(dance.party!.count!, mood.total!).toDouble(),
-                  "Relax": percent(dance.relax!.count!, mood.total!).toDouble(),
-                };
-
-
-
-                Map<String, double> dataMapYear = {
-                  "1940": 0,
-                  "1950": 0,
-                  "1960": 0,
-                  "1970": 0,
-                  "1980": 0,
-                  "1990": 0,
-                  "2000": 0,
-                  "2010": 0,
-                  "2020": 0,
-                };
+              Map<String, double> dataMapDance = {
+                "Party": percent(dance.party!.count!, mood.total!).toDouble(),
+                "Relax": percent(dance.relax!.count!, mood.total!).toDouble(),
+              };
 
 
-                listItemYear.forEach((element) {
-                  var y = (element.year!).toString();
-                  dataMapYear[y] = (element.count!).toDouble();
-                });
 
-                print(dataMapYear);
+              Map<String, double> dataMapYear = {
+                "1940": 0,
+                "1950": 0,
+                "1960": 0,
+                "1970": 0,
+                "1980": 0,
+                "1990": 0,
+                "2000": 0,
+                "2010": 0,
+                "2020": 0,
+              };
 
-                return ResponsiveLayoutBuilder(
-                  small: (_, __)  => Container(
-                    padding: EdgeInsets.all(24),
-                    child: Container(
-                      child: Column(
+
+              listItemYear.forEach((element) {
+                var y = (element.year!).toString();
+                dataMapYear[y] = (element.count!).toDouble();
+              });
+
+              return SingleChildScrollView(
+                child: Column(
+                  children : [
+                    Container(
+                      margin: EdgeInsets.only(top : 48),
+                      padding: EdgeInsets.symmetric(horizontal: 48),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children : [
-                          Expanded(
-                            child: CardChart(
-                              title: "Your Song By The Decade",
-                              child: PieChart(
-                                dataMap: dataMapYear,
-                                colorList: colorListYear,
-                                chartValuesOptions: ChartValuesOptions(
-                                  showChartValuesInPercentage: true,
-                                ),
-                              ),
-                            )
-                          ),
-                          Expanded(
-                            child: CardChart(
-                              title: "Your Song By The Mood",
-                              child: PieChart(
-                                dataMap: dataMapMood,
-                                colorList: colorListMood,
-                                chartValuesOptions: ChartValuesOptions(
-                                  showChartValuesInPercentage: true,
-                                ),
-                              ),
-                            )
-                          ),
-                          Expanded(
-                            child: CardChart(
-                              title: "Your Song By The Danceability",
-                              child: PieChart(
-                                dataMap: dataMapDance,
-                                chartValuesOptions: ChartValuesOptions(
-                                  showChartValuesInPercentage: true,
-                                ),
-                              ),
-                            )
-                          ),
-                          Expanded(
-                            child: CardChart(
-                              title: "Your Song By The Energy",
-                              child: PieChart(
-                                dataMap: dataMapEnergy,
-                                chartValuesOptions: ChartValuesOptions(
-                                  showChartValuesInPercentage: true,
-                                ),
-                              ),
-                            )
-                          ),
-                          Expanded(
-                            child: CardChart(
-                              title: "Your Song By The Acousticness",
-                              child: PieChart(
-                                dataMap: dataMapAcousticness,
-                                chartValuesOptions: ChartValuesOptions(
-                                  showChartValuesInPercentage: true,
-                                ),
-                              ),
-                            )
+                          Text("${user.displayName ?? ''}'s Spotify Account"),
+                          IconButton(
+                            icon: Icon(
+                              Icons.share,
+                            ),
+                            onPressed: () {
+                              if(user.id  != ""){
+                                fToast.showToast(
+                                  gravity: ToastGravity.BOTTOM,
+                                  toastDuration: Duration(seconds: 2),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      color: Colors.greenAccent,
+                                    ),
+                                    child: Text("😁 Copy Link Share to Clipboard"),
+                                  )
+                                );  
+                                Clipboard.setData(ClipboardData(text: "https://prasetyanurangga.github.io/moodly/share.html?id=${user.id ?? ''}"));
+                              }
+                            },
                           ),
                         ]
-                      )
-                    )
-                  ),
-                  medium: (_, __) => Container(
-                    padding: EdgeInsets.all(24),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Row(
+                      ),
+                    ),
+                    ResponsiveLayoutBuilder(
+                      small: (_, __)  => Container(
+                        padding: EdgeInsets.all(24),
+                        child: Container(
+                          child: Column(
                             children : [
                               Expanded(
                                 child: CardChart(
@@ -260,11 +230,6 @@ class _ResultPageState extends State<ResultPage> {
                                   ),
                                 )
                               ),
-                            ]
-                          ),
-
-                          Row(
-                            children : [
                               Expanded(
                                 child: CardChart(
                                   title: "Your Song By The Energy",
@@ -289,119 +254,194 @@ class _ResultPageState extends State<ResultPage> {
                               ),
                             ]
                           )
-                        ]
-                      )
-                    )
-                  ),
-                  large: (_, __) => Container(
-                    padding: EdgeInsets.all(24),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Row(
-                            children : [
-                              Expanded(
-                                child: CardChart(
-                                  title: "Your Song By The Decade",
-                                  child: PieChart(
-                                    dataMap: dataMapYear,
-                                    colorList: colorListYear,
-                                    chartValuesOptions: ChartValuesOptions(
-                                      showChartValuesInPercentage: true,
-                                    ),
-                                  ),
-                                )
-                              ),
-                              Expanded(
-                                child: CardChart(
-                                  title: "Your Song By The Mood",
-                                  child: PieChart(
-                                    dataMap: dataMapMood,
-                                    colorList: colorListMood,
-                                    chartValuesOptions: ChartValuesOptions(
-                                      showChartValuesInPercentage: true,
-                                    ),
-                                  ),
-                                )
-                              ),
-                              Expanded(
-                                child: CardChart(
-                                  title: "Your Song By The Danceability",
-                                  child: PieChart(
-                                    dataMap: dataMapDance,
-                                    chartValuesOptions: ChartValuesOptions(
-                                      showChartValuesInPercentage: true,
-                                    ),
-                                  ),
-                                )
-                              ),
-                            ]
-                          ),
-
-                          Row(
-                            children : [
-                              Expanded(
-                                child: CardChart(
-                                  title: "Your Song By The Energy",
-                                  child: PieChart(
-                                    dataMap: dataMapEnergy,
-                                    chartValuesOptions: ChartValuesOptions(
-                                      showChartValuesInPercentage: true,
-                                    ),
-                                  ),
-                                )
-                              ),
-                              Expanded(
-                                child: CardChart(
-                                  title: "Your Song By The Acousticness",
-                                  child: PieChart(
-                                    dataMap: dataMapAcousticness,
-                                    chartValuesOptions: ChartValuesOptions(
-                                      showChartValuesInPercentage: true,
-                                    ),
-                                  ),
-                                )
-                              ),
-                            ]
-                          )
-                        ]
-                      )
-                    )
-                  ),
-                );
-
-              } else if(state is MoodlyFailure) {
-
-                var data = state.error;
-                return Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children : [
-                      Text(
-                        "500",
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 56,
-                          color: Colors.black
                         )
                       ),
-                      Text(
-                        "Internal Server Error",
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 24,
-                          color: Colors.black
+                      medium: (_, __) => Container(
+                        padding: EdgeInsets.all(24),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                children : [
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Decade",
+                                      child: PieChart(
+                                        dataMap: dataMapYear,
+                                        colorList: colorListYear,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Mood",
+                                      child: PieChart(
+                                        dataMap: dataMapMood,
+                                        colorList: colorListMood,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Danceability",
+                                      child: PieChart(
+                                        dataMap: dataMapDance,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ]
+                              ),
+
+                              Row(
+                                children : [
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Energy",
+                                      child: PieChart(
+                                        dataMap: dataMapEnergy,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Acousticness",
+                                      child: PieChart(
+                                        dataMap: dataMapAcousticness,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ]
+                              )
+                            ]
+                          )
                         )
+                      ),
+                      large: (_, __) => Container(
+                        padding: EdgeInsets.all(24),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                children : [
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Decade",
+                                      child: PieChart(
+                                        dataMap: dataMapYear,
+                                        colorList: colorListYear,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Mood",
+                                      child: PieChart(
+                                        dataMap: dataMapMood,
+                                        colorList: colorListMood,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Danceability",
+                                      child: PieChart(
+                                        dataMap: dataMapDance,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ]
+                              ),
+
+                              Row(
+                                children : [
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Energy",
+                                      child: PieChart(
+                                        dataMap: dataMapEnergy,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: CardChart(
+                                      title: "Your Song By The Acousticness",
+                                      child: PieChart(
+                                        dataMap: dataMapAcousticness,
+                                        chartValuesOptions: ChartValuesOptions(
+                                          showChartValuesInPercentage: true,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ]
+                              )
+                            ]
+                          )
+                        )
+                      ),
+                    ) 
+                  ]
+                )
+              );
+
+            } else if(state is MoodlyFailure) {
+
+              var data = state.error;
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children : [
+                    Text(
+                      "500",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 56,
+                        color: Colors.black
                       )
-                    ]
-                  )
-                );
-              } else {
-                return Container();
-              }
+                    ),
+                    Text(
+                      "Internal Server Error",
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 24,
+                        color: Colors.black
+                      )
+                    )
+                  ]
+                )
+              );
+            } else {
+              return Container();
             }
-          )
+          }
         )
       )
     );

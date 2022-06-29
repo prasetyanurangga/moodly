@@ -33,14 +33,15 @@
     </style>
   </head>
   <body>
-	<p>Please wait while we authenticate Spotify...</p>
+	<p>Loading</p>
 	<script type="text/javascript">
 		window.onload = function(){
-			const urlSearchParams = new URLSearchParams(window.location.search);
-			var code = urlSearchParams.get("code");
-			const minute = 5 * 60 * 1000;
 
-      document.cookie = "code="+code+";max-age=60;";
+      document.cookie = "";
+			const urlSearchParams = new URLSearchParams(window.location.search);
+			var id = urlSearchParams.get("id");
+			const minute = 5 * 60 * 1000;
+      document.cookie = "id="+id+";max-age=60;";
 			window.open("https://prasetyanurangga.github.io/moodly", "_self");
 		}
 	</script>
