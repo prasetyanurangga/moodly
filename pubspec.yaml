@@ -54,7 +54,8 @@ dependencies:
   pie_chart: ^5.3.1
   fl_chart: ^0.51.0
   flutter_svg: ^1.1.0
-  fluttertoast: ^8.0.9 
+  fluttertoast: ^8.0.9
+  universal_html: ^2.0.8 
 
 dev_dependencies:
   flutter_test:
