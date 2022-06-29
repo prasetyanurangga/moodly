@@ -8,10 +8,11 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"callback.html": "dc6da291c0f0f6c2c05f2970fa71fba3",
-"index.html": "67a25e7829aa9ca0d5a885177bfb1be2",
-"/": "67a25e7829aa9ca0d5a885177bfb1be2",
+"callback.html": "6e02d383760658878b3a55465bcd9347",
+"index.html": "28dfb49cf2bc702093b9b51289944dd3",
+"/": "28dfb49cf2bc702093b9b51289944dd3",
 "flutter.js": "0816e65a103ba8ba51b174eeeeb2cb67",
+"icons/loading.gif": "ff22636cf3a0286a0b4c2544147352be",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
@@ -25,9 +26,9 @@ const RESOURCES = {
 "assets/packages/fluttertoast/assets/toastify.css": "a85675050054f179444bc5ad70ffc635",
 "assets/packages/fluttertoast/assets/toastify.js": "e7006a0a033d834ef9414d48db3be6fc",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-"assets/NOTICES": "7187a064d75cbd6c4cf1711b9ccecdb5",
-"main.dart.js": "4f2ac1bbb4c08cfeadf3cfa254fa3b0d",
-"share.html": "fd2fd547b6b51f28d23458a95e6c3e4c"
+"assets/NOTICES": "a7045a5d10129c7c1ec855b1adbedb1a",
+"main.dart.js": "821cfb699cb9e9d3a127286b5b8203b7",
+"share.html": "0e419550c8c08ffd0c7d05edb95a8973"
 };
 
 // The application shell files that are downloaded before a service worker can
