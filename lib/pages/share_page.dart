@@ -38,7 +38,12 @@ class _SharePageState extends State<SharePage> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+
     var cookie =  CookieManager();
+
+    cookie.addToCookie("code","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
+    cookie.addToCookie("access_token","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
+    cookie.addToCookie("id","", "expires=Thu, 01 Jan 1970 00:00:00 UTC" );
     if(cookie.containCookie('id')){
       BlocProvider.of<MoodlyBloc>(context).add(
         GetSpotifyAudioFeatureById(
